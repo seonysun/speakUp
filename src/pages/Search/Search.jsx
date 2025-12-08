@@ -46,11 +46,11 @@ function Search() {
       ) : (
         <div>
           <p className="mt-3 text-lg">
-            <span className="bg-main rounded-lg px-3 py-2 text-xl text-white">
+            <span className="rounded-lg bg-main px-3 py-2 text-xl text-white">
               {query}
             </span>
             &nbsp;검색 결과 :{' '}
-            <span className="text-main text-xl">{formattedTotal}</span>개
+            <span className="text-xl text-main">{formattedTotal}</span>개
           </p>
           {!total ? (
             <p className="mt-4">검색 결과가 없습니다</p>
