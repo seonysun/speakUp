@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useIntersectionObserver } from '@seonysun/intersection-observer';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import ListNav from './ListNav';
 import ListSkeleton from '../../components/Card/ListSkeleton';
 import YoutubeCard from '../../components/Card/YoutubeCard';
 import { LIST_MENU, MAX_LIST_LENGTH, SKELETON } from '../../constants/uiData';
-import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 import videoOptions from '../../utils/api/videoOptions';
 
 function List() {
@@ -22,7 +22,11 @@ function List() {
   const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery(videoOptions.playList(playlist.playlist));
 
-  const observerRef = useIntersectionObserver({ hasNextPage, fetchNextPage });
+  const observerRef = useIntersectionObserver({
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  });
 
   return (
     <>

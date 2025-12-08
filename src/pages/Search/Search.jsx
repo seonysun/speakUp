@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { useIntersectionObserver } from '@seonysun/intersection-observer';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { debounce } from 'lodash';
 import { useSearchParams } from 'react-router-dom';
@@ -6,7 +7,6 @@ import ListSkeleton from '../../components/Card/ListSkeleton';
 import YoutubeCard from '../../components/Card/YoutubeCard';
 import SearchInput from '../../components/Input/SearchInput';
 import { MAX_LIST_LENGTH, SKELETON } from '../../constants/uiData';
-import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 import videoOptions from '../../utils/api/videoOptions';
 
 function Search() {
@@ -30,7 +30,11 @@ function Search() {
   const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useInfiniteQuery(videoOptions.playSearch(query));
 
-  const observerRef = useIntersectionObserver({ hasNextPage, fetchNextPage });
+  const observerRef = useIntersectionObserver({
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  });
 
   const total = data?.pages?.[0]?.total;
   const formattedTotal = total ? total.toLocaleString() : '0';
