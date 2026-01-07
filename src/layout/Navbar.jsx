@@ -7,7 +7,6 @@ import useResize from '../hooks/useResize';
 
 const MENU_TABS = [
   { to: `list/${LIST_MENU[0].to}`, tab: '목록' },
-  { to: 'map', tab: '지도' },
   { to: 'chat', tab: '커뮤니티' },
   { to: 'search', tab: '검색' },
 ];
@@ -37,7 +36,7 @@ function Navbar({ setSearchOpen }) {
           }}
           className={`${
             location.pathname.includes(menu.to)
-              ? 'border-main text-main border-y font-bold'
+              ? 'border-y border-main font-bold text-main'
               : 'font-medium'
           } cursor-pointer`}
         >
