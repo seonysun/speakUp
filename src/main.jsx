@@ -9,7 +9,9 @@ import { router } from './router';
 import './styles/main.css';
 import { SupabaseProvider } from './supabase/context';
 
-if (process.env.NODE_ENV === 'development') {
+const enableMocking = import.meta.env.VITE_ENABLE_MSW;
+
+if (enableMocking) {
   const { worker } = await import('./mocks/browser');
   worker.start({
     onUnhandledRequest: 'bypass',
