@@ -1,5 +1,5 @@
 import { delay, http, HttpResponse } from 'msw';
-import { challenges } from '../datas/challenges';
+import { challenges } from '../data/challenges';
 
 const challengeHandler = [
   http.get('http://localhost:3000/api/challenges', async () => {

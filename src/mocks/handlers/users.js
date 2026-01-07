@@ -1,5 +1,5 @@
 import { delay, http, HttpResponse } from 'msw';
-import { users } from '../datas/users';
+import { users } from '../data/users';
 
 const userHandler = [
   http.get('http://localhost:3000/api/users', async () => {

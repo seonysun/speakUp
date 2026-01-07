@@ -1,5 +1,5 @@
 import { delay, http, HttpResponse } from 'msw';
-import { posts } from '../datas/posts';
+import { posts } from '../data/posts';
 
 const baseURL = 'http://localhost:3000';
 
