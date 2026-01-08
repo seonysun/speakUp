@@ -11,11 +11,15 @@ import { SupabaseProvider } from './supabase/context';
 
 const enableMocking = import.meta.env.VITE_ENABLE_MSW;
 
-if (enableMocking) {
+async function loadMocks() {
   const { worker } = await import('./mocks/browser');
   worker.start({
     onUnhandledRequest: 'bypass',
   });
+}
+
+if (enableMocking) {
+  loadMocks();
 }
 
 const query = new QueryClient();
