@@ -5,9 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import useLazyImage from '../../hooks/useLazyImage';
 import FavoriteButton from '../Button/FavoriteButton';
 
-function YoutubeCard({ id, item, size = 'w-[47%] md:w-[31%]' }) {
+function YoutubeCard({
+  id,
+  item,
+  size = 'w-[47%] md:w-[31%]',
+  isLCPcandidate,
+}) {
   const navigate = useNavigate();
-  const imgRef = useLazyImage();
+  const imgRef = useLazyImage({ disable: isLCPcandidate });
 
   return (
     <div
@@ -19,7 +24,9 @@ function YoutubeCard({ id, item, size = 'w-[47%] md:w-[31%]' }) {
       <div className="relative w-full overflow-hidden rounded-xl pb-[56.25%]">
         <img
           ref={imgRef}
-          src="/speakupIcon.png"
+          src={
+            isLCPcandidate ? item.thumbnails.standard?.url : '/speakupIcon.png'
+          }
           data-src={item.thumbnails.standard?.url || '/speakupIcon.png'}
           alt={item.title}
           onError={(e) => {

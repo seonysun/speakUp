@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
 
-const useLazyImage = () => {
+const useLazyImage = ({ disabled = false }) => {
   const imgRef = useRef(null);
 
   useEffect(() => {
-    const el = imgRef.current;
-    if (!el) return;
+    if (disabled) return;
+    if (!imgRef.current) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -22,7 +22,7 @@ const useLazyImage = () => {
     );
 
     observer.observe(imgRef.current);
-  }, []);
+  }, [disabled]);
 
   return imgRef;
 };
