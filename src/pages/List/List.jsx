@@ -40,13 +40,18 @@ function List() {
         ) : (
           <div className="flex flex-wrap gap-4 lg:gap-x-6">
             {data?.pages.flatMap((page) =>
-              page.items.map((item) => (
-                <YoutubeCard
-                  key={item.id}
-                  id={item.snippet.resourceId.videoId}
-                  item={item.snippet}
-                />
-              )),
+              page.items.map((item, itemIndex) => {
+                const isLCPcandidate = itemIndex < 3;
+
+                return (
+                  <YoutubeCard
+                    key={item.id}
+                    id={item.snippet.resourceId.videoId}
+                    item={item.snippet}
+                    isLCPcandidate={isLCPcandidate}
+                  />
+                );
+              }),
             )}
           </div>
         )}

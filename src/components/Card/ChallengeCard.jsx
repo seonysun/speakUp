@@ -5,9 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import useLazyImage from '../../hooks/useLazyImage';
 import FavoriteButton from '../Button/FavoriteButton';
 
-function ChallengeCard({ item, isLoading, size = 'w-[47%] md:w-[31%]' }) {
+function ChallengeCard({
+  item,
+  isLoading,
+  size = 'w-[47%] md:w-[31%]',
+  isLCPcandidate = true,
+}) {
   const navigate = useNavigate();
-  const imgRef = useLazyImage();
+  const imgRef = useLazyImage({ disabled: isLCPcandidate });
 
   if (isLoading) {
     return (
