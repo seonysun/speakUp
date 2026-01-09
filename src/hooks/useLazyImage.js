@@ -12,8 +12,11 @@ const useLazyImage = ({ disabled = false }) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const img = entry.target;
-            img.src = entry.target.getAttribute('data-src');
+            const dataSrc = entry.target.getAttribute('data-src');
 
+            if (!dataSrc) return;
+
+            img.src = dataSrc;
             observer.unobserve(img);
           }
         });
