@@ -8,18 +8,16 @@ const useLazyImage = ({ disabled = false }) => {
 
     const img = imgRef.current;
     if (!img) return;
-    if (!img.dataset.src) return;
+
+    const dataSrc = img.dataset.src;
+    if (!dataSrc) return;
 
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const { target } = entry;
-            target.src = entry.target.getAttribute('data-src');
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
 
-            observer.unobserve(target);
-          }
-        });
+        img.src = dataSrc;
+        observer.disconnect();
       },
       { threshold: 0.1 },
     );
