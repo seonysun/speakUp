@@ -5,19 +5,19 @@ const useLazyImage = ({ disabled = false }) => {
 
   useEffect(() => {
     if (disabled) return;
-    if (!imgRef.current) return;
+
+    const img = imgRef.current;
+    if (!img) return;
+    if (!img.dataset.src) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const img = entry.target;
-            const dataSrc = entry.target.getAttribute('data-src');
+            const { target } = entry;
+            target.src = entry.target.getAttribute('data-src');
 
-            if (!dataSrc) return;
-
-            img.src = dataSrc;
-            observer.unobserve(img);
+            observer.unobserve(target);
           }
         });
       },
