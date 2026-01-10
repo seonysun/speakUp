@@ -18,7 +18,7 @@ async function loadMocks() {
   });
 }
 
-if (enableMocking) {
+if (enableMocking === 'true') {
   loadMocks();
 }
 
