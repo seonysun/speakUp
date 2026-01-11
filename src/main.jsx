@@ -9,31 +9,31 @@ import { router } from './router';
 import './styles/main.css';
 import { SupabaseProvider } from './supabase/context';
 
-const enableMocking = import.meta.env.VITE_ENABLE_MSW;
+async function enableMocking() {
+  if (import.meta.env.VITE_ENABLE_MSW !== 'true') {
+    return;
+  }
 
-async function loadMocks() {
   const { worker } = await import('./mocks/browser');
-  worker.start({
+  await worker.start({
     onUnhandledRequest: 'bypass',
   });
 }
 
-if (enableMocking) {
-  loadMocks();
-}
-
 const query = new QueryClient();
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <Provider store={store}>
-      <QueryClientProvider client={query}>
-        <ThemeProvider>
-          <SupabaseProvider>
-            <RouterProvider router={router} />
-          </SupabaseProvider>
-        </ThemeProvider>
-      </QueryClientProvider>
-    </Provider>
-  </StrictMode>,
+enableMocking().then(() =>
+  createRoot(document.getElementById('root')).render(
+    <StrictMode>
+      <Provider store={store}>
+        <QueryClientProvider client={query}>
+          <ThemeProvider>
+            <SupabaseProvider>
+              <RouterProvider router={router} />
+            </SupabaseProvider>
+          </ThemeProvider>
+        </QueryClientProvider>
+      </Provider>
+    </StrictMode>,
+  ),
 );
